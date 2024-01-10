@@ -1,33 +1,28 @@
-module github.com/denysvitali/documents-processor
+module github.com/denysvitali/zefix-tools
 
-go 1.20
+go 1.21
+
+toolchain go1.21.6
 
 require (
 	github.com/alexflint/go-arg v1.4.3
-	github.com/denysvitali/documents-indexer v0.0.0
-	github.com/denysvitali/go-datesfinder v0.0.1
-	github.com/denysvitali/sparql-client v0.0.0
-	github.com/opensearch-project/opensearch-go v1.1.0
+	github.com/denysvitali/sparql-client v0.0.0-20240110220834-27981c54ce21
 	github.com/sirupsen/logrus v1.9.3
-	gorm.io/driver/postgres v1.5.2
-	gorm.io/gorm v1.25.2
+	gorm.io/driver/postgres v1.5.4
+	gorm.io/gorm v1.25.5
 )
 
 require (
-	github.com/alexflint/go-scalar v1.1.0 // indirect
-	github.com/almerlucke/go-iban v0.0.0-20220324081643-09bcab81b879 // indirect
-	github.com/denysvitali/go-swiss-qr-bill v0.0.0-20230326211735-9c02af35b762 // indirect
-	github.com/goodsign/monday v1.0.1 // indirect
+	github.com/alexflint/go-scalar v1.2.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
-	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect
-	github.com/jackc/pgx/v5 v5.3.1 // indirect
+	github.com/jackc/pgservicefile v0.0.0-20231201235250-de7065d80cb9 // indirect
+	github.com/jackc/pgx/v5 v5.5.1 // indirect
+	github.com/jackc/puddle/v2 v2.2.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
-	golang.org/x/crypto v0.8.0 // indirect
-	golang.org/x/sys v0.7.0 // indirect
-	golang.org/x/text v0.9.0 // indirect
+	github.com/stretchr/testify v1.8.4 // indirect
+	golang.org/x/crypto v0.18.0 // indirect
+	golang.org/x/sync v0.6.0 // indirect
+	golang.org/x/sys v0.16.0 // indirect
+	golang.org/x/text v0.14.0 // indirect
 )
-
-replace github.com/denysvitali/documents-indexer v0.0.0 => ../documents-indexer
-
-replace github.com/denysvitali/sparql-client v0.0.0 => ../sparql-client

@@ -2,6 +2,7 @@ package zefix
 
 import (
 	"errors"
+
 	"gorm.io/gorm"
 )
 
@@ -13,7 +14,7 @@ func (c *Client) FindCompany(name string) (*Company, error) {
 		if errors.Is(tx.Error, gorm.ErrRecordNotFound) {
 			return nil, nil
 		}
-		c.logger.Errorf("unable to find company: %v", tx.Error)
+		logger.Errorf("unable to find company: %v", tx.Error)
 		return nil, tx.Error
 	}
 	return &company, nil

@@ -2,31 +2,32 @@ package main
 
 import (
 	"github.com/alexflint/go-arg"
-	"github.com/denysvitali/documents-processor/pkg/zefix"
 	"github.com/sirupsen/logrus"
+
+	"github.com/denysvitali/documents-processor/pkg/zefix"
 )
 
 var args struct {
-	Dsn       string `arg:"-d,--dsn,env:ZEFIX_IMPORT_DSN,required"`
-	InputFile string `arg:"-i,--input,env:ZEFIX_IMPORT_INPUT,required"`
-	Debug     *bool  `arg:"-D,--debug,env:ZEFIX_IMPORT_DEBUG"`
+	Dsn       string `arg:"-d,--dsn,env:ZEFIX_DSN,required"`
+	LogLevel  string `arg:"--log-level,env:LOG_LEVEL" default:"info"`
+	InputFile string `arg:"-i,--input,env:INPUT_FILE,required"`
 }
 
 var logger = logrus.New()
 
 func main() {
 	arg.MustParse(&args)
-
-	if args.Debug != nil && *args.Debug {
-		logger.SetLevel(logrus.DebugLevel)
+	lvl, err := logrus.ParseLevel(args.LogLevel)
+	if err != nil {
+		lvl = logrus.InfoLevel
 	}
+	logger.SetLevel(lvl)
 
 	c, err := zefix.New(args.Dsn)
 	if err != nil {
 		logger.Fatalf("unable to create zefix client: %v", err)
 	}
 
-	c.SetLogger(logger)
 	err = c.Import(args.InputFile)
 	if err != nil {
 		logger.Fatalf("unable to import: %v", err)

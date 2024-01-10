@@ -2,32 +2,34 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/alexflint/go-arg"
-	"github.com/denysvitali/documents-processor/pkg/zefix"
 	"github.com/sirupsen/logrus"
+
+	"github.com/denysvitali/documents-processor/pkg/zefix"
 )
 
 var args struct {
-	Dsn         string `arg:"-d,--dsn,env:ZEFIX_FIND_DSN,required"`
-	Debug       *bool  `arg:"-D,--debug,env:ZEFIX_FIND_DEBUG"`
+	Dsn         string `arg:"-d,--dsn,env:ZEFIX_DSN,required"`
+	LogLevel    string `arg:"--log-level,env:LOG_LEVEL" default:"info"`
 	CompanyName string `arg:"positional,required"`
 }
 
-var logger = logrus.New()
+var logger = logrus.StandardLogger()
 
 func main() {
 	arg.MustParse(&args)
-
-	if args.Debug != nil && *args.Debug {
-		logger.SetLevel(logrus.DebugLevel)
+	lvl, err := logrus.ParseLevel(args.LogLevel)
+	if err != nil {
+		lvl = logrus.InfoLevel
 	}
+	logger.SetLevel(lvl)
 
 	c, err := zefix.New(args.Dsn)
 	if err != nil {
 		logger.Fatalf("unable to create zefix client: %v", err)
 	}
 
-	c.SetLogger(logger)
 	company, err := c.FindCompany(args.CompanyName)
 	if err != nil {
 		logger.Fatalf("unable to find company: %v", err)

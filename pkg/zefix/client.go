@@ -7,9 +7,10 @@ import (
 )
 
 type Client struct {
-	db     *gorm.DB
-	logger *logrus.Logger
+	db *gorm.DB
 }
+
+var logger = logrus.StandardLogger().WithField("package", "zefix")
 
 func New(dsn string) (*Client, error) {
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
@@ -22,12 +23,6 @@ func New(dsn string) (*Client, error) {
 	}
 	err = c.initModels()
 	return &c, err
-}
-
-func (c *Client) SetLogger(logger *logrus.Logger) {
-	if logger != nil {
-		c.logger = logger
-	}
 }
 
 func (c *Client) initModels() error {
