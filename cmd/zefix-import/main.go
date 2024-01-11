@@ -4,7 +4,7 @@ import (
 	"github.com/alexflint/go-arg"
 	"github.com/sirupsen/logrus"
 
-	"github.com/denysvitali/documents-processor/pkg/zefix"
+	"github.com/denysvitali/zefix-tools/pkg/zefix"
 )
 
 var args struct {
