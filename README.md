@@ -24,6 +24,14 @@ sparql-client --endpoint https://register.ld.admin.ch/query \
 docker-compose up -d
 ```
 
+#### Get the container IP
+
+```bash
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker-compose ps -q | head -n1)
+```
+
+Once you have the IP, you can add it to `ZEFIX_DSN` in `.env`
+
 ### Import the data to postgres
 
 ```bash
