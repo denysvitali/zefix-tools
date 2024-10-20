@@ -32,3 +32,11 @@ func (c *Client) initModels() error {
 	}
 	return nil
 }
+
+func (c *Client) Ping() error {
+	sqlDB, err := c.db.DB()
+	if err != nil {
+		return err
+	}
+	return sqlDB.Ping()
+}
