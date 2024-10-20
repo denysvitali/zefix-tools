@@ -9,8 +9,11 @@ the [Zefix SPARQL endpoint](https://register.ld.admin.ch/sparql) and generate a 
 
 ```bash
 go install github.com/denysvitali/sparql-client/cmd/sparql-client@master
-
-sparql-client --endpoint https://register.ld.admin.ch/query --query ./resources/test/query-2.txt -a --limit 100 -o zefix.json
+sparql-client --endpoint https://register.ld.admin.ch/query \
+    --query query.txt \
+    -a -D \
+    --limit 500 \
+    -o zefix.json
 ```
 
 ## Import the data

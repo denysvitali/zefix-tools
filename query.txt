@@ -1,0 +1,16 @@
+PREFIX schema: <http://schema.org/>
+PREFIX admin: <https://schema.ld.admin.ch/>
+SELECT ?company_uri ?legal_name ?name ?company_type ?municipality ?adresse ?locality
+WHERE {
+  ?company_uri a admin:ZefixOrganisation ;
+       schema:name ?name ;
+       schema:legalName ?legal_name;
+       admin:municipality ?muni_id .
+  ?muni_id schema:name ?municipality .
+  ?company_uri schema:additionalType ?type_id .
+  ?type_id schema:name ?company_type .
+  ?company_uri schema:address ?adr.
+  ?adr schema:streetAddress ?adresse ;
+  	   schema:addressLocality ?locality .
+  filter langMatches(lang(?company_type), "de") .
+}
